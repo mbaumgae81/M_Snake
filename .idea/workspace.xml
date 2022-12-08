@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29765dec-0a26-4cf6-9153-5ed9c4f6bbd8" name="Changes" comment="Initial commit">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mbg/game/m_snake/SnakeBody.java" afterDir="false" />
+    <list default="true" id="29765dec-0a26-4cf6-9153-5ed9c4f6bbd8" name="Changes" comment="Umbau OOP">
+      <change afterPath="$PROJECT_DIR$/src/ex/GameScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mbg/game/m_snake/GameScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mbg/game/m_snake/GameScene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mbg/game/m_snake/GameScene.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mbg/game/m_snake/Snake.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mbg/game/m_snake/Snake.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mbg/game/m_snake/SnakeBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mbg/game/m_snake/SnakeBody.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mbg/game/m_snake/SnakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mbg/game/m_snake/SnakeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/mbg/game/m_snake/Snake_hauptmenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/mbg/game/m_snake/Snake_hauptmenu.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +27,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -50,7 +55,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.1576087&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propDebugger&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Color Scheme Font&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -58,9 +63,12 @@
       <recent name="C:\Users\Student\OneDrive - GFN AG (EDU)\Idea_Proj\M_Snake\src\main\resources\com\mbg\game\m_snake" />
       <recent name="C:\Users\Student\OneDrive - GFN AG (EDU)\Idea_Proj\M_Snake\src\ex" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Student\OneDrive - GFN AG (EDU)\Idea_Proj\M_Snake\src\ex" />
+    </key>
   </component>
   <component name="RunManager">
-    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+    <configuration name="Snake" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.mbg.game.m_snake.Snake" />
       <module name="M_Snake" />
       <method v="2">
@@ -77,6 +85,14 @@
       <option name="presentableId" value="Default" />
       <updated>1670014596594</updated>
     </task>
+    <task id="LOCAL-00001" summary="Umbau OOP">
+      <created>1670430235827</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1670430235827</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="UpdateCopyrightCheckinHandler">
@@ -96,20 +112,30 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="UI anpassung" />
     <MESSAGE value="Initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
+    <MESSAGE value="Umbau OOP" />
+    <option name="LAST_COMMIT_MESSAGE" value="Umbau OOP" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/mbg/game/m_snake/SnakeController.java</url>
-          <line>65</line>
+          <line>163</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/mbg/game/m_snake/Snake.java</url>
+          <line>42</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint enabled="true" type="java-exception" />
       </default-breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
