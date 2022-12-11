@@ -126,22 +126,9 @@ public class SnakeBody {
 		}
 
 		updateRects();
-		System.out.println(this.x +" "+ this.y);
+		//System.out.println(this.x +" "+ this.y);
 											// erzeuge neues rect
 
-//		for (Rectangle a : this.rects){												// Fülle rect mit Daten
-//			if (this.rects.lastIndexOf(this.rects) ==this.rects.indexOf(a)){
-//				a.setX(this.x);
-//				a.setY(this.y);
-//				a.setHeight(width);
-//				a.setWidth(height);
-//				a.fillProperty().set(BLACK);
-//			}
-//		}
-//
-//		if (this.rects.size() >= this.laenge) {
-//			this.rects.remove(0);
-//		}
 
 	}	//end Move Auto
 

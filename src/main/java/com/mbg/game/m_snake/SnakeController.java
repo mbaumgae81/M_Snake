@@ -30,7 +30,7 @@ public class SnakeController {
 
 	private final int pixelx = 1200;
 	private final int pixely = 800;
-
+	Rectangle apple;
 
 
 	@FXML
@@ -48,12 +48,13 @@ public class SnakeController {
 		sn = new SnakeBody(pixelx, pixely, BLACK);			// Auflösung pixel 1200 * 800 Farbe der Schlange BLACK
 		System.out.println("---------------" + sn.getMaxX());
 		food = new Food();
+		apple = new Rectangle();
 		food.setMaxX(sn.getMaxX());// Errechnete Maximale Felder
 		food.setMaxY(sn.getMaxY());		// für X und Y
 		food.setWidth(sn.getWidth()); 	// with übergabe für posToPixels
 
-//		System.out.println(food.getPosX());
-//		System.out.println(food.getPosY());
+		System.out.println(food.getPosX());
+		System.out.println(food.getPosY());
 //		System.out.println(food.getApple().getY());
 //		System.out.println(food.getApple().getWidth());
 //		System.out.println(food.getApple().getHeight());
@@ -77,7 +78,9 @@ public class SnakeController {
 		root = new Group();
 //		root.getChildren().add(rect);
 		erzeugeFood();
+		updatePosFood();
 		erzeugeRect();
+		System.out.println(apple.getX()+ " " + apple.getY());
 		Scene scene = new Scene(root,sn.getPixelX(),sn.getPixelY());
 		stage.setScene(scene);
 		stage.show();
@@ -144,8 +147,8 @@ public class SnakeController {
 					}
 				}
 				if(ke.getCode() == KeyCode.SPACE){
-					sn.moveAuto();
-					updateRectDraw();
+
+					updatePosFood();
 				}
 				if(ke.getCode() == KeyCode.X){
 					for ( Rectangle r : sn.getRects()){
@@ -190,10 +193,17 @@ public class SnakeController {
 
 		}
 	}
+		private void updatePosFood(){
+			food.getNewFood();
+			System.out.println(food.getPixelPosX());
+			System.out.println(food.getPixelPosY());
+			apple.setY(food.getPixelPosY());
+			apple.setX(food.getPixelPosX());
+		}
 		private void erzeugeFood(){
 		//	food.
 			//food.neuesFood();
-			Rectangle apple = food.getApple();
+			apple = food.getApple();
 			root.getChildren().add(apple);
 		}
 
