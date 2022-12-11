@@ -3,19 +3,14 @@ package com.mbg.game.m_snake;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -25,25 +20,17 @@ import static javafx.scene.paint.Color.BLACK;
 
 public class SnakeController {
 	public TextField textfield;
+	Food food;
 	private  SnakeBody sn;
 	private static boolean debug = true;
 	private int count;
 	@FXML
-	private Label welcomeText;
 	private AnchorPane anchorPane;
 	private Group root = new Group();
 
 	private final int pixelx = 1200;
 	private final int pixely = 800;
-	//SnakeBody sb;
-	//private Stage stage;
-	//private Scene scene;
-	//private Parent root;
 
-//	public void setSbody(SnakeBody sn){
-//		this.sb = sn;
-//	}
-//	public static void SnakeController();
 
 
 	@FXML
@@ -58,11 +45,26 @@ public class SnakeController {
 	public void onSinglePlayerClick(ActionEvent event) throws IOException {
 		count = 0;
 		//snake = new SnakeController();
-		sn = new SnakeBody(pixelx, pixely);
+		sn = new SnakeBody(pixelx, pixely, BLACK);			// Auflösung pixel 1200 * 800 Farbe der Schlange BLACK
+		System.out.println("---------------" + sn.getMaxX());
+		food = new Food();
+		food.setMaxX(sn.getMaxX());// Errechnete Maximale Felder
+		food.setMaxY(sn.getMaxY());		// für X und Y
+		food.setWidth(sn.getWidth()); 	// with übergabe für posToPixels
 
-		System.out.println(sn.getD());
-		System.out.println(sn.getX());
-		System.out.println(sn.getY());
+//		System.out.println(food.getPosX());
+//		System.out.println(food.getPosY());
+//		System.out.println(food.getApple().getY());
+//		System.out.println(food.getApple().getWidth());
+//		System.out.println(food.getApple().getHeight());
+//		System.out.println(food.getApple().getStroke());
+//		System.out.println(food.getApple().getArcHeight());
+//		System.out.println(food.getApple().getArcWidth());
+
+
+//		System.out.println(sn.getD());
+//		System.out.println(sn.getX());
+//		System.out.println(sn.getY());
 
 
 		Button button = (Button) event.getSource();																		// nehme Evet vom Listener
@@ -70,47 +72,38 @@ public class SnakeController {
 		//Pane n = stage //
 
 
-		Rectangle rect = new Rectangle();
-		rect.setY(500);
-		rect.setX(500);
-		rect.setHeight(20);
-		rect.setWidth(20);
-		rect.fillProperty().set(BLACK);
 
-
-		//anchorPane.getChildren().addAll(rect);
+// Build Scene
 		root = new Group();
-		root.getChildren().add(rect);
-		updateRect();
-//		Parent root = FXMLLoader.load(getClass().getResource("game_single.fxml"));
+//		root.getChildren().add(rect);
+		erzeugeFood();
+		erzeugeRect();
 		Scene scene = new Scene(root,sn.getPixelX(),sn.getPixelY());
-//
-		//FXMLLoader fxmlLoader = new FXMLLoader(Snake.class.getResource("game_single.fxml"));						// Lade FXML
-		//Scene scene = new Scene(fxmlLoader.load());																		// Laden
-
-
 		stage.setScene(scene);
 		stage.show();
+// Build done
 
 
+// Automove  and Update
 		AnimationTimer tn = new AnimationTimer() {																		//Animation Timer starten
 			@Override
 			public void handle(long l) {
-				if (count > 120){
-					System.out.println(" Timer ");
+				if (count > 10){
+					//System.out.println(" Timer ");
 					sn.moveAuto();
-
+					updateRectDraw();
 					count =0;
 				}
-
-
 			count++;
 			}
 		};
 		tn.start();
 
-		//this.stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-
+/**
+ *
+ * Abfrage der Tastatur eingaben
+ *
+ */
 		scene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent ke) {
@@ -128,9 +121,12 @@ public class SnakeController {
 			if(ke.getCode() == KeyCode.LEFT) {
 				sn.setDirLeft();
 			}
-			if(ke.getCode() == KeyCode.SPACE){
-				sn.moveAuto();
-			}
+
+
+				/**
+				 *
+				 * Debugging Code kann mit der BOOL debug deaktiviert werden
+				 */
 			if (debug) {
 				if (ke.getCode() == KeyCode.A) {
 					System.out.println(sn.getD());
@@ -147,40 +143,80 @@ public class SnakeController {
 
 					}
 				}
+				if(ke.getCode() == KeyCode.SPACE){
+					sn.moveAuto();
+					updateRectDraw();
+				}
+				if(ke.getCode() == KeyCode.X){
+					for ( Rectangle r : sn.getRects()){
+						System.out.println("rgetX " + r.getX());
+						System.out.println("rgetY" + r.getY());
+					}
+				}
+
 			}
 //
 		}
 		});																		//	Event Listener Key
 																										// Anzeigen
+/**
+ *
+ * Abfragen Buttons und eingaben
+ *
+ */
 
 	}
 	public void onnextSceneClick(ActionEvent event) throws IOException {
 		Button button = (Button) event.getSource();
-		//Stage stage = (Stage) button.getScene().getWindow();
-//		GameScene game = new GameScene();
-//
-//		game.gameStart((Stage) button.getScene().getWindow());
-//		System.out.println("Button Clicked");
-//		FXMLLoader fxmlLoader = new FXMLLoader(Snake.class.getResource("Snake_netzwerk.fxml"));
-//		//this.stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-//		Scene scene = new Scene(fxmlLoader.load());
-//		stage.setScene(scene);
-//		stage.show();
+
 
 	}
 
-	private void updateRect(){
+
+	public void onExitClick(ActionEvent actionEvent) {
+		System.exit(0);
+	}
+
+
+
+	/***
+	 *
+	 * Alle Rectangle erzeugen und an root anhängen
+	 */
+	private void erzeugeRect(){
 
 		for (Rectangle r: sn.getRects()){
 			root.getChildren().add(r);
 
 		}
 	}
+		private void erzeugeFood(){
+		//	food.
+			//food.neuesFood();
+			Rectangle apple = food.getApple();
+			root.getChildren().add(apple);
+		}
 
 
+	/**
+	 *
+	 * Alle Positionen aktualisieren
+	 *
+	 */
 
-	public void onExitClick(ActionEvent actionEvent) {
-		System.exit(0);
+	private void updateRectDraw(){
+		double tmp[][] = new double[100][100];
+
+		tmp		= sn.getTempRects();
+		int zaehl = 0;
+		int zahl2 = 0;
+		for ( Rectangle r : sn.getRects()){
+			r.setX(sn.getTempRects()[zaehl][0]);
+			r.setY(sn.getTempRects()[zaehl][1]);
+			//System.out.println(sn.getTempRects()[zaehl][0]);
+			zaehl += 1;
+		}
 	}
+
 
 }

@@ -1,11 +1,7 @@
 package com.mbg.game.m_snake;
 
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import java.util.ArrayList;
-import java.util.List;
-
-import static javafx.scene.paint.Color.BLACK;
 
 // Haupt Logic
 public class SnakeBody {
@@ -18,10 +14,12 @@ public class SnakeBody {
 	}
 	public direction d;
 
-	private List<Rectangle> rects;
+	private Rectangle[] rects;
+	private double[][]  tempRects;
 	private int laenge;
 	private int x;
 	private int y;
+	private final int maxLength = 100;
 	private int height;
 	private int width;
 	private int pixelX;
@@ -40,10 +38,11 @@ public class SnakeBody {
 	 *
 	 */
 
-	 public SnakeBody(int pixelsX, int pixelsY){
+	 public SnakeBody(int pixelsX, int pixelsY, Color c){
 
 		// Set defaults
-		List<Rectangle> rects = new ArrayList<Rectangle>();
+		//List<Rectangle> rects = new ArrayList<Rectangle>();
+		 this.rects = new Rectangle[maxLength];
 		 if (debug) System.out.println("SB INIT -- Start ");
 		this.d = direction.RIGHT;
 		this.x = 5;					// Startposition für X
@@ -55,20 +54,27 @@ public class SnakeBody {
 		this.pixelY = pixelsY;
 		this.maxX = pixelsX / height;
 		this.maxY = pixelsY / width;
-		 this.rects = new ArrayList<Rectangle>();
 
 		// ----------------------------------------------
 
 
 		 //		 Erzeuge Rects erste Initialisierung
-		for ( int i = 0; i <= 5; i++){
+		for ( int i = 0; i < maxLength; i++){
 			Rectangle n = new Rectangle();
 			n.setWidth(width);
 			n.setHeight(height);
-			n.setX(posToPixel(this.x + i));
+			n.setStrokeWidth(2);
+			n.setStroke(Color.WHITE);
 			n.setY(posToPixel((this.y)));
-			n.fillProperty().set(BLACK);
-			this.rects.add(n);
+			n.fillProperty().set(c);
+
+			if (i  >laenge) {
+				n.setVisible(false);
+			}
+			else {
+				n.setX(posToPixel(this.x + i));
+			}
+			this.rects[i] = n;
 
 		}
 
@@ -76,44 +82,77 @@ public class SnakeBody {
 		//--------------------------------------------------------
 	}
 
-	public int posToPixel(int XY){
+	private int posToPixel(int XY){
 		 int posXY = XY * this.width;
 		 return posXY;
 	}
 
+	private void updateRects(){
+		this.tempRects = new double[maxLength][maxLength];			// Speicher der X/y Pixeal Pos der Rects
 
+		for ( int r =1 ; r < 100; r++) {
+
+				this.tempRects[r][0] =  this.rects[r-1].getX();                        // Startet in der 2. row [0][0]
+				this.tempRects[r][1] =  this.rects[r-1].getY();////// 					[0][1]
+//			System.out.println("rects" + r +" getX: "+ this.rects[r].getX());
+//			System.out.println("rects" + r +" getX: "+ this.rects[r].getY());
+//			System.out.println("Temps POS " +r + "0 "+ this.tempRects[r][0]);
+//			System.out.println("Temps POS " +r + "1 "+ this.tempRects[r][1]);
+
+		}
+		this.tempRects[0][0] = posToPixel(this.x);
+		this.tempRects[0][1] = posToPixel(this.y);
+//		System.out.println("rects" +" getX: "+ this.rects[0].getX());
+//		System.out.println("rects" + " getX: "+ this.rects[0].getY());
+//		System.out.println("Temps POS " + "0 "+ this.tempRects[0][0]);
+//		System.out.println("Temps POS " + "1 "+ this.tempRects[0][1]);
+		}
 
 	public void moveAuto(){
 
 		switch(this.d){					// Abhängig von der richtung eins weiter
 			case RIGHT: this.x+=1;
+//				System.out.println(" X: " + this.x + " Y: " +this.y);
 			break;
 			case LEFT: this.x-=1;
+//				System.out.println(" X: " + this.x + " Y: " +this.y);
 			break;
 			case UP: this.y-=1;
+//				System.out.println(" X: " + this.x + " Y: " +this.y);
 			break;
 			case DOWN: this.y+=1;
-		}
-		System.out.println(this.x +""+ this.y);
-		this.rects.add(new Rectangle());											// erzeuge neues rect
-
-		for (Rectangle a : this.rects){												// Fülle rect mit Daten
-			if (rects.lastIndexOf(rects) ==rects.indexOf(a)){
-				a.setX(this.x);
-				a.setY(this.y);
-				a.setHeight(width);
-				a.setWidth(height);
-				a.fillProperty().set(BLACK);
-			}
+//				System.out.println(" X: " + this.x + " Y: " +this.y);
+			break;
 		}
 
-		if (this.rects.size() >= this.laenge) {
-			this.rects.remove(0);
-		}
+		updateRects();
+		System.out.println(this.x +" "+ this.y);
+											// erzeuge neues rect
+
+//		for (Rectangle a : this.rects){												// Fülle rect mit Daten
+//			if (this.rects.lastIndexOf(this.rects) ==this.rects.indexOf(a)){
+//				a.setX(this.x);
+//				a.setY(this.y);
+//				a.setHeight(width);
+//				a.setWidth(height);
+//				a.fillProperty().set(BLACK);
+//			}
+//		}
+//
+//		if (this.rects.size() >= this.laenge) {
+//			this.rects.remove(0);
+//		}
 
 	}	//end Move Auto
 
 
+	public double[][] getTempRects() {
+		return tempRects;
+	}
+
+	public void setTempRects(double[][] tempRects) {
+		this.tempRects = tempRects;
+	}
 
 	/***
 	 * Getter und Setter
@@ -150,6 +189,15 @@ public class SnakeBody {
 //		this.rects = rects;
 //	}
 
+
+	public int getMaxX() {
+		return maxX;
+	}
+
+	public int getMaxY() {
+		return maxY;
+	}
+
 	public direction getD() {
 		return d;
 	}
@@ -173,8 +221,13 @@ public class SnakeBody {
 	public void setY(int y) {
 		this.y = y;
 	}
-	public List<Rectangle> getRects() {
-		return this.rects;
+
+	public Rectangle[] getRects() {
+		return rects;
+	}
+
+	public void setRects(Rectangle[] rects) {
+		this.rects = rects;
 	}
 
 	public int getPixelX() {
@@ -185,13 +238,17 @@ public class SnakeBody {
 		return this.pixelY;
 	}
 
+	public int getWidth() {
+		return width;
+	}
+
 	/***
 	 * getter Setter Ende
 	 *
 	 */
 
 
-	//////////////////////////
+
 
 
 
