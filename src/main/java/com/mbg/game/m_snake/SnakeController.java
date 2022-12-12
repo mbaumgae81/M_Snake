@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -26,11 +27,14 @@ public class SnakeController {
 	@FXML
 	private AnchorPane anchorPane;
 	private Group root = new Group();
+	Label punkteLabel;
+	Label spielerLabel;
 
 	private final int pixelx = 1200;
 	private final int pixely = 800;
 	Rectangle apple;
 	CollisionCheck ch;
+	HighScore punkte;
 
 
 	@FXML
@@ -50,6 +54,7 @@ public class SnakeController {
 		food = new Food();
 		apple = new Rectangle();
 		ch = new CollisionCheck();
+		punkte = new HighScore();
 // ------------------------------
 		food.setMaxX(sn.getMaxX());// Errechnete Maximale Felder
 		food.setMaxY(sn.getMaxY());		// für X und Y
@@ -81,8 +86,7 @@ public class SnakeController {
 		erzeugeFood();
 		updatePosFood();
 		erzeugeRect();
-		//sn.moveAuto();
-
+		erzeugePunkteAnzeige();
 		System.out.println(apple.getX()+ " " + apple.getY());
 		Scene scene = new Scene(root,sn.getPixelX(),sn.getPixelY());
 		stage.setScene(scene);
@@ -192,18 +196,19 @@ public class SnakeController {
 	 */
 	private void collision(){
 		double tmp[][] = new double[100][100];
-
+		// Collision mit FOOD
 		tmp		= sn.getTempRects();
-		if (ch.checkColl(apple.getX(), apple.getY(), sn.getTempRects()[0][0], sn.getTempRects()[0][1] )){
-			//System.out.println("Collission");
-			sn.addLengthSnake();
-			updatePosFood();
+		if (ch.checkColl(apple.getX(), apple.getY(), sn.getTempRects()[0][0], sn.getTempRects()[0][1] )){	// Prüfe Schlangenkopf mit Food
+			sn.addLengthSnake();		// Schlange wird verlängert
+			punkte.addPoints();			// Füge Punkte dazu
+			updatePunkteAnzeige();		// Punkte Anzeige Aktualisieren
+			updatePosFood();			// Erzeuge food an neuer Position
 		}
 		//
 	}
 	private void erzeugeRect(){
 
-		for (Rectangle r: sn.getRects()){
+		for (Rectangle r: sn.getRects()){		// Füge alle in SnakeBody erzeugten Rectangles an das Grafik Objekt root
 			root.getChildren().add(r);
 
 		}
@@ -220,6 +225,16 @@ public class SnakeController {
 			//food.neuesFood();
 			apple = food.getApple();
 			root.getChildren().add(apple);
+		}
+
+		private void erzeugePunkteAnzeige(){
+		punkteLabel = new Label();
+		punkteLabel.setText("Punkte: " +punkte.getAktuellePunkte());
+		root.getChildren().add(punkteLabel);
+		//punkteLabel.set
+		}
+		private void updatePunkteAnzeige(){
+			punkteLabel.setText("Punkte: " +punkte.getAktuellePunkte());
 		}
 
 

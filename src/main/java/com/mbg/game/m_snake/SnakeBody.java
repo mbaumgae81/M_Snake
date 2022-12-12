@@ -38,7 +38,7 @@ public class SnakeBody {
 	 *
 	 */
 
-	 public SnakeBody(int pixelsX, int pixelsY, Color c){
+	  SnakeBody(int pixelsX, int pixelsY, Color c){
 
 		// Set defaults
 		//List<Rectangle> rects = new ArrayList<Rectangle>();
@@ -114,19 +114,19 @@ public class SnakeBody {
 	public void moveAuto(){
 
 		switch(this.d){					// Abhängig von der richtung eins weiter
-			case RIGHT: this.x+=1;
-//				System.out.println(" X: " + this.x + " Y: " +this.y);
+			case RIGHT:  this.x+=1;
 			break;
 			case LEFT: this.x-=1;
-//				System.out.println(" X: " + this.x + " Y: " +this.y);
 			break;
 			case UP: this.y-=1;
-//				System.out.println(" X: " + this.x + " Y: " +this.y);
 			break;
 			case DOWN: this.y+=1;
-//				System.out.println(" X: " + this.x + " Y: " +this.y);
 			break;
 		}
+		if (this.x > this.maxX) this.x =0;		// Überschlag auf gegenüber liegende Seite
+		if (this.x < 0) this.x = maxX;			//
+		if (this.y > this.maxY) this.y =0;		//
+		if (this.y < 0) this.y = maxY;			//
 
 		updateRects();
 		//System.out.println(this.x +" "+ this.y);
