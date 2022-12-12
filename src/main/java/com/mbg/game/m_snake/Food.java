@@ -4,8 +4,6 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.Random;
 public class Food {
-
-
 	private int posX;
 	private double pixelPosX;
 	private double pixelPosY;
@@ -20,15 +18,7 @@ public class Food {
 	  Food(){
 		apple = new Rectangle();
 		// Position //
-		  this.r = new Random();
-		  /**
-		this.posX = genRandomInt(this.maxX);
-		this.posY  =genRandomInt(this.maxY);
-		this.apple.setX(posToPixel(this.posX));
-		this.apple.setY(posToPixel(this.posY));
-		   Ohne MAX wird erst nach init übergeben
-
-		   */
+		this.r = new Random();
 		this.apple.setWidth(20);
 		this.apple.setHeight(20);
 		this.apple.setArcHeight(34);
@@ -53,10 +43,8 @@ public class Food {
 		this.pixelPosY = posToPixel(this.posY);
 	}
 	private int genRandomInt(int MaX){
-		System.out.println("INIT RND "+ this.maxX);
-//		r = new Random();
-		int aktRandom = r.nextInt(0, this.maxX);
-		System.out.println(" RND = " + aktRandom);
+		int aktRandom = r.nextInt(0, MaX);
+
 		return aktRandom;
 	}
 

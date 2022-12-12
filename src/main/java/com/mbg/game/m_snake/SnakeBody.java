@@ -66,14 +66,13 @@ public class SnakeBody {
 			n.setStrokeWidth(2);
 			n.setStroke(Color.WHITE);
 			n.setY(posToPixel((this.y)));
+			n.setX(posToPixel(this.x));
 			n.fillProperty().set(c);
 
 			if (i  >laenge) {
 				n.setVisible(false);
 			}
-			else {
-				n.setX(posToPixel(this.x + i));
-			}
+
 			this.rects[i] = n;
 
 		}
@@ -81,7 +80,9 @@ public class SnakeBody {
 		 if (debug)  System.out.println("SB INIT -- Ende ");
 		//--------------------------------------------------------
 	}
-
+	public void addLengthSnake(){
+		 this.laenge += 2;
+	}
 	private int posToPixel(int XY){
 		 int posXY = XY * this.width;
 		 return posXY;
@@ -91,7 +92,9 @@ public class SnakeBody {
 		this.tempRects = new double[maxLength][maxLength];			// Speicher der X/y Pixeal Pos der Rects
 
 		for ( int r =1 ; r < 100; r++) {
-
+			if (r  < this.laenge) {
+				this.rects[r].setVisible(true);
+			}
 				this.tempRects[r][0] =  this.rects[r-1].getX();                        // Startet in der 2. row [0][0]
 				this.tempRects[r][1] =  this.rects[r-1].getY();////// 					[0][1]
 //			System.out.println("rects" + r +" getX: "+ this.rects[r].getX());
@@ -171,12 +174,6 @@ public class SnakeBody {
 		this.gameOver = gameOver;
 	}
 
-
-//	public void setRects(List<Rectangle> rects) {
-//		this.rects = rects;
-//	}
-
-
 	public int getMaxX() {
 		return maxX;
 	}
@@ -189,9 +186,7 @@ public class SnakeBody {
 		return d;
 	}
 
-	public void setD(direction d) {
-		this.d = d;
-	}
+
 
 	public int getX() {
 		return this.x;
@@ -201,13 +196,6 @@ public class SnakeBody {
 		return this.y;
 	}
 
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
 
 	public Rectangle[] getRects() {
 		return rects;
@@ -233,12 +221,6 @@ public class SnakeBody {
 	 * getter Setter Ende
 	 *
 	 */
-
-
-
-
-
-
 
 
 } // class Close
