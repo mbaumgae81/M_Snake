@@ -1,20 +1,19 @@
 package com.mbg.game.m_snake;
 
-import java.util.Random;
+import javax.swing.*;
+import java.awt.*;
 
 public class Test {
 	public static void main(String[] args) {
-		Food f = new Food();
+		JFrame mainFrame = new JFrame();
+		mainFrame.setTitle("test");
+		mainFrame.setSize(400,400);
+		mainFrame.setVisible(true);
 
-		System.out.println(f.getPosX());
-		System.out.println(f.getPosY());
-		//		System.out.println(f.getApple());
-		System.out.println(f.getPosX());
-		Random r = new Random();
-		for (int i = 0; i < 20; i++) {
-			int aktRandom = r.nextInt(0, 60);
-			System.out.println(" RND = " + aktRandom);
-
+		Button exit = new Button("Exit");
+		exit.addActionListener(e -> System.exit(0));
+		exit.setBounds(300,200,100,25);
+		mainFrame.add(exit);
 		}
 
 	}
@@ -22,6 +21,6 @@ public class Test {
 
 //		for (int a = 0; a < 100; a++) {
 //			System.out.print(f.genRandomInt(5)+1);
-}
+
 
 

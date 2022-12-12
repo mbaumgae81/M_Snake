@@ -59,30 +59,12 @@ public class SnakeController {
 		food.setMaxX(sn.getMaxX());// Errechnete Maximale Felder
 		food.setMaxY(sn.getMaxY());		// für X und Y
 		food.setWidth(sn.getWidth()); 	// with übergabe für posToPixels
-
-		System.out.println(food.getPosX());
-		System.out.println(food.getPosY());
-//		System.out.println(food.getApple().getY());
-//		System.out.println(food.getApple().getWidth());
-//		System.out.println(food.getApple().getHeight());
-//		System.out.println(food.getApple().getStroke());
-//		System.out.println(food.getApple().getArcHeight());
-//		System.out.println(food.getApple().getArcWidth());
-
-//		System.out.println(sn.getD());
-//		System.out.println(sn.getX());
-//		System.out.println(sn.getY());
-
-
-		Button button = (Button) event.getSource();																		// nehme Evet vom Listener
-		Stage stage = (Stage) button.getScene().getWindow();															// Übernehme die Scene von wo der Button gedrückt wurde
-		//Pane n = stage //
-
-
+//-------------------------------------
+		Button button = (Button) event.getSource();							// nehme Evet vom Listener
+		Stage stage = (Stage) button.getScene().getWindow();				// Übernehme die Scene von wo der Button gedrückt wurde
 
 // Build Scene
 		root = new Group();
-//		root.getChildren().add(rect);
 		erzeugeFood();
 		updatePosFood();
 		erzeugeRect();
@@ -119,20 +101,18 @@ public class SnakeController {
 			@Override
 			public void handle(KeyEvent ke) {
 		 //System.out.println("test");
-			if(ke.getCode() == KeyCode.UP){
+			if(ke.getCode() == KeyCode.UP && sn.getD() != sn.getDOWN()) {
 				sn.setDirUp();
 			}
-			if(ke.getCode() == KeyCode.DOWN){
+			if(ke.getCode() == KeyCode.DOWN && sn.getD() != sn.getUP()){
 				sn.setDirDown();
 			}
-			if(ke.getCode() == KeyCode.RIGHT){
+			if(ke.getCode() == KeyCode.RIGHT && sn.getD() != sn.getLEFT()){
 				sn.setDirRight();
-
 			}
-			if(ke.getCode() == KeyCode.LEFT) {
+			if(ke.getCode() == KeyCode.LEFT && sn.getD() != sn.getRIGHT()) {
 				sn.setDirLeft();
 			}
-
 
 				/**
 				 *
@@ -198,13 +178,21 @@ public class SnakeController {
 		double tmp[][] = new double[100][100];
 		// Collision mit FOOD
 		tmp		= sn.getTempRects();
-		if (ch.checkColl(apple.getX(), apple.getY(), sn.getTempRects()[0][0], sn.getTempRects()[0][1] )){	// Prüfe Schlangenkopf mit Food
+		if (ch.checkFood(apple.getX(), apple.getY(), sn.getTempRects()[0][0], sn.getTempRects()[0][1] )){	// Prüfe Schlangenkopf mit Food
 			sn.addLengthSnake();		// Schlange wird verlängert
 			punkte.addPoints();			// Füge Punkte dazu
 			updatePunkteAnzeige();		// Punkte Anzeige Aktualisieren
 			updatePosFood();			// Erzeuge food an neuer Position
 		}
-		//
+
+	}
+
+	private void collSelf(){
+		if (ch.collissionSnakeSelf(sn.getTempRects(), sn.getLaenge())){
+			sn.setGameOver(true);
+			System.out.println(" LOOOOSE ");
+		};
+
 	}
 	private void erzeugeRect(){
 
@@ -230,8 +218,8 @@ public class SnakeController {
 		private void erzeugePunkteAnzeige(){
 		punkteLabel = new Label();
 		punkteLabel.setText("Punkte: " +punkte.getAktuellePunkte());
+		punkteLabel.setStyle("-fx-font:25 'arial black';");
 		root.getChildren().add(punkteLabel);
-		//punkteLabel.set
 		}
 		private void updatePunkteAnzeige(){
 			punkteLabel.setText("Punkte: " +punkte.getAktuellePunkte());
@@ -253,7 +241,6 @@ public class SnakeController {
 		for ( Rectangle r : sn.getRects()){
 			r.setX(sn.getTempRects()[zaehl][0]);
 			r.setY(sn.getTempRects()[zaehl][1]);
-			//System.out.println(sn.getTempRects()[zaehl][0]);
 			zaehl += 1;
 		}
 	}
