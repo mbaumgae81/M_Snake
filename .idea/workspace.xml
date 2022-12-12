@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29765dec-0a26-4cf6-9153-5ed9c4f6bbd8" name="Changes" comment="Umbau OOP, v01, next Food implement">
+    <list default="true" id="29765dec-0a26-4cf6-9153-5ed9c4f6bbd8" name="Changes" comment="Umbau OOP, v01, Food wird random erzeugt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mbg/game/m_snake/CollisionCheck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mbg/game/m_snake/CollisionCheck.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mbg/game/m_snake/Food.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mbg/game/m_snake/Food.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mbg/game/m_snake/SnakeBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mbg/game/m_snake/SnakeBody.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mbg/game/m_snake/SnakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mbg/game/m_snake/SnakeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mbg/game/m_snake/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mbg/game/m_snake/Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +108,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670755137026</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Umbau OOP, v01, Food wird random erzeugt">
+      <created>1670760377586</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1670760377586</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="UpdateCopyrightCheckinHandler">
@@ -131,7 +138,8 @@
     <MESSAGE value="Umbau OOP" />
     <MESSAGE value="Umbau OOP, v01" />
     <MESSAGE value="Umbau OOP, v01, next Food implement" />
-    <option name="LAST_COMMIT_MESSAGE" value="Umbau OOP, v01, next Food implement" />
+    <MESSAGE value="Umbau OOP, v01, Food wird random erzeugt" />
+    <option name="LAST_COMMIT_MESSAGE" value="Umbau OOP, v01, Food wird random erzeugt" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -11,12 +11,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
-import static javafx.scene.paint.Color.BLACK;
 
 public class SnakeController {
 	public TextField textfield;
@@ -31,6 +30,7 @@ public class SnakeController {
 	private final int pixelx = 1200;
 	private final int pixely = 800;
 	Rectangle apple;
+	CollisionCheck ch;
 
 
 	@FXML
@@ -45,10 +45,12 @@ public class SnakeController {
 	public void onSinglePlayerClick(ActionEvent event) throws IOException {
 		count = 0;
 		//snake = new SnakeController();
-		sn = new SnakeBody(pixelx, pixely, BLACK);			// Auflösung pixel 1200 * 800 Farbe der Schlange BLACK
-		System.out.println("---------------" + sn.getMaxX());
+// 	Objekte Erzeugen
+		sn = new SnakeBody(pixelx,pixely, Color.BLACK);
 		food = new Food();
 		apple = new Rectangle();
+		ch = new CollisionCheck();
+// ------------------------------
 		food.setMaxX(sn.getMaxX());// Errechnete Maximale Felder
 		food.setMaxY(sn.getMaxY());		// für X und Y
 		food.setWidth(sn.getWidth()); 	// with übergabe für posToPixels
@@ -61,7 +63,6 @@ public class SnakeController {
 //		System.out.println(food.getApple().getStroke());
 //		System.out.println(food.getApple().getArcHeight());
 //		System.out.println(food.getApple().getArcWidth());
-
 
 //		System.out.println(sn.getD());
 //		System.out.println(sn.getX());
@@ -80,6 +81,8 @@ public class SnakeController {
 		erzeugeFood();
 		updatePosFood();
 		erzeugeRect();
+		//sn.moveAuto();
+
 		System.out.println(apple.getX()+ " " + apple.getY());
 		Scene scene = new Scene(root,sn.getPixelX(),sn.getPixelY());
 		stage.setScene(scene);
@@ -95,6 +98,7 @@ public class SnakeController {
 					//System.out.println(" Timer ");
 					sn.moveAuto();
 					updateRectDraw();
+					collision();
 					count =0;
 				}
 			count++;
@@ -147,8 +151,8 @@ public class SnakeController {
 					}
 				}
 				if(ke.getCode() == KeyCode.SPACE){
-
-					updatePosFood();
+					sn.moveAuto();
+//					updatePosFood();
 				}
 				if(ke.getCode() == KeyCode.X){
 					for ( Rectangle r : sn.getRects()){
@@ -186,6 +190,17 @@ public class SnakeController {
 	 *
 	 * Alle Rectangle erzeugen und an root anhängen
 	 */
+	private void collision(){
+		double tmp[][] = new double[100][100];
+
+		tmp		= sn.getTempRects();
+		if (ch.checkColl(apple.getX(), apple.getY(), sn.getTempRects()[0][0], sn.getTempRects()[0][1] )){
+			//System.out.println("Collission");
+			sn.addLengthSnake();
+			updatePosFood();
+		}
+		//
+	}
 	private void erzeugeRect(){
 
 		for (Rectangle r: sn.getRects()){
